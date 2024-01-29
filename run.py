@@ -62,9 +62,9 @@ def main():
 
     device = 'cuda' if Cuda_Available() else 'cpu'
 
-    with open('./Assets/character_id_mapping.pkl', 'rb') as file:
+    with open('./Models/character_id_mapping.pkl', 'rb') as file:
         id_to_name = pickle.load(file)
-    with open('./Assets/persian_alphabet_translation.pkl', 'rb') as file:
+    with open('./Models/persian_alphabet_translation.pkl', 'rb') as file:
         eng_to_persian = pickle.load(file)
 
     model_params = {

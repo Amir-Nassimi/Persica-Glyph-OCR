@@ -34,9 +34,9 @@ PersicaGlyphOCR is an advanced OCR system designed for the precise recognition o
     pip install -r requirements.txt
     ```
 3. **Model Weights**:
-    - Download the YOLOv8 model weights from [this link](https://drive.google.com/file/d/1DQkaTuqPu6EPFlOacljrc3lpetiBKbS5/view?usp=sharing).
-    - Create a `Models` directory in the root of the project.
-    - Place the downloaded weight file inside the `Models` directory.
+    - Download the YOLOv8 model weights and license plate specifications from [this link](https://drive.google.com/file/d/1DvKWOKv6w3eBF1l5ONJbutOmyYIA0rFh/view?usp=sharing).
+    - Create a `Models`` directory in the root of the project.
+    - Place the downloaded file inside the `Models` directory and extract them using the passphrase: `PersicaGlyph_OCR`.
 
 ## Build and Test
 Execute `run.py` with the following arguments:
@@ -60,7 +60,7 @@ python run.py \
 - `--runs_num`: Number of times the detection is repeated for runtime evaluation.
 - `--input_dir`: Directory path containing the test images.
 - `--output_dir`: Directory path where the results will be saved.
-- `--model_path`: (Optional) Path to the YOLO model. Default is `"../../../Models/OCR_0/best.pt"`.
+- `--model_path`: (Optional) Path to the YOLO model. Default is `"./Models/PGO_Weights.pt"`.
 - `--plate_conf`: (Optional) Confidence threshold for plate detection. Default is `0.83`.
 - `--char_conf`: (Optional) Confidence threshold for character detection. Default is `0.5`.
 - `--plate_iou`: (Optional) IOU threshold for plate detection. Default is `0.7`.
