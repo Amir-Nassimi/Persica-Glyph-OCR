@@ -50,7 +50,7 @@ def main():
     parser.add_argument("--runs_num", type=int, help="Repeat the detection to obtain a valid runtime", required=True)
     parser.add_argument("--input_dir", type=str, help="Path to the input directory containing test images", required=True)
     parser.add_argument("--output_dir", type=str, help="Path to the output directory to save results", required=True)
-    parser.add_argument("--model_path", type=str, help="Path to the YOLO model", default="../../../Models/OCR_0/best.pt", required=False)
+    parser.add_argument("--model_path", type=str, help="Path to the YOLO model", default="./Models/PGO_Weights.pt", required=False)
     parser.add_argument("--plate_conf", type=float, help="Confidence threshold for plate detection", default=0.83, required=False)
     parser.add_argument("--char_conf", type=float, help="Confidence threshold for character detection", default=0.5, required=False)
     parser.add_argument("--plate_iou", type=float, help="IOU threshold for plate detection", default=0.7, required=False)
