@@ -11,16 +11,9 @@ from OCR.main_model import OCRModel
 
 
 class OCROperations:
-    def __init__(self, model_params, mapping_files, output_dir):
-        self.load_mappings(mapping_files)
-        self.ocr_model = OCRModel(**model_params, id_to_name=self.id_to_name, eng_to_persian=self.eng_to_persian)
+    def __init__(self, model_params, output_dir):
+        self.ocr_model = OCRModel(**model_params)
         self.output_dir = output_dir
-
-    def load_mappings(self, mapping_files):
-        with open(mapping_files['id_to_name'], 'rb') as file:
-            self.id_to_name = pickle.load(file)
-        with open(mapping_files['eng_to_persian'], 'rb') as file:
-            self.eng_to_persian = pickle.load(file)
 
     def detect_and_print(self, img_paths):
         results = {}
@@ -54,23 +47,25 @@ class OCROperations:
 
 def main():
     parser = argparse.ArgumentParser(description="OCR Module Evaluating")
-    parser.add_argument("--runs_num", type=int, help="Repeat the detection to obtain a valid runtime")
-    parser.add_argument("--input_dir", type=str, help="Path to the input directory containing test images")
-    parser.add_argument("--output_dir", type=str, help="Path to the output directory to save results")
-    parser.add_argument("--model_path", type=str, help="Path to the YOLO model", default="../../../Models/OCR_0/best.pt")
-    parser.add_argument("--plate_conf", type=float, help="Confidence threshold for plate detection", default=0.83)
-    parser.add_argument("--char_conf", type=float, help="Confidence threshold for character detection", default=0.5)
-    parser.add_argument("--plate_iou", type=float, help="IOU threshold for plate detection", default=0.7)
-    parser.add_argument("--char_iou", type=float, help="IOU threshold for character detection", default=0.7)
-    parser.add_argument("--plate_imgsz", type=int, nargs=2, help="Image size for plate detection", default=(640, 640))
-    parser.add_argument("--char_imgsz", type=int, nargs=2, help="Image size for character detection", default=(320, 320))
+    parser.add_argument("--runs_num", type=int, help="Repeat the detection to obtain a valid runtime", required=True)
+    parser.add_argument("--input_dir", type=str, help="Path to the input directory containing test images", required=True)
+    parser.add_argument("--output_dir", type=str, help="Path to the output directory to save results", required=True)
+    parser.add_argument("--model_path", type=str, help="Path to the YOLO model", default="../../../Models/OCR_0/best.pt", required=False)
+    parser.add_argument("--plate_conf", type=float, help="Confidence threshold for plate detection", default=0.83, required=False)
+    parser.add_argument("--char_conf", type=float, help="Confidence threshold for character detection", default=0.5, required=False)
+    parser.add_argument("--plate_iou", type=float, help="IOU threshold for plate detection", default=0.7, required=False)
+    parser.add_argument("--char_iou", type=float, help="IOU threshold for character detection", default=0.7, required=False)
+    parser.add_argument("--plate_imgsz", type=int, nargs=2, help="Image size for plate detection", default=(640, 640), required=False)
+    parser.add_argument("--char_imgsz", type=int, nargs=2, help="Image size for character detection", default=(320, 320), required=False)
 
     args = parser.parse_args()
 
     device = 'cuda' if Cuda_Available() else 'cpu'
-    runs_num = args.runs_num
-    input_dir = args.input_dir
-    output_dir = args.output_dir
+
+    with open('./Assets/character_id_mapping.pkl', 'rb') as file:
+        id_to_name = pickle.load(file)
+    with open('./Assets/persian_alphabet_translation.pkl', 'rb') as file:
+        eng_to_persian = pickle.load(file)
 
     model_params = {
         "model_path": args.model_path,
@@ -80,21 +75,18 @@ def main():
         "char_iou": args.char_iou,
         "plate_imgsz": tuple(args.plate_imgsz),
         "char_imgsz": tuple(args.char_imgsz),
-        "device": device
+        "device": device,
+        "id_to_name": id_to_name,
+        "eng_to_persian": eng_to_persian
     }
 
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
+    if not os.path.exists(args.output_dir):
+        os.makedirs(args.output_dir)
 
-    img_paths = glob.glob(os.path.join(input_dir, '*.jpg'))
+    img_paths = glob.glob(os.path.join(args.input_dir, '*.jpg'))
 
-    mapping_files = {
-        'id_to_name': './Assets/character_id_mapping.pkl',
-        'eng_to_persian': './Assets/persian_alphabet_translation.pkl'
-          }
-
-    ocr_operations = OCROperations(model_params, mapping_files, output_dir)
-    elapsed_time = ocr_operations.time_evaluation(img_paths, runs_num)
+    ocr_operations = OCROperations(model_params, args.output_dir)
+    elapsed_time = ocr_operations.time_evaluation(img_paths, args.runs_num)
     
     print(f"Using device: {device}")
     print(f"Average elapsed time: {round(elapsed_time, 2)} seconds\n")
@@ -103,10 +95,6 @@ def main():
     results = ocr_operations.detect_and_print(img_paths)
     for key, value in results.items():
         print(f"OCR result for {key}: {value}")
-
-if __name__ == "__main__":
-    main()
-
 
 if __name__ == "__main__":
     main()
