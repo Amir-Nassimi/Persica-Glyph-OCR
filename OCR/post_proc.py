@@ -96,6 +96,34 @@ class OCRPostProcessor:
             return None
 
     def working_with_results(self, results):
+
+        """
+        Process detection results and organize them into a formatted list.
+
+        Args:
+        - results (list): List of detection results, where each result contains information
+                        about predicted boxes, classes, and confidences.
+        - id_to_name (dict): Dictionary mapping class IDs to corresponding names.
+
+        Returns:
+        - detection_list (list): A formatted list representing the organized and sorted
+                                detection results. Each element in the list corresponds to
+                                a part of a detected sequence.
+
+        The method takes detection results and organizes them into a standardized list of
+        character sequences based on their spatial arrangement. It extracts relevant information
+        such as bounding box coordinates, confidence scores, and class predictions. The results
+        are sorted based on the x-coordinate of the center of the bounding boxes to ensure
+        proper sequencing.
+
+        The method also handles cases where characters may be close or missing. If the total
+        number of characters is not 8, it attempts to reconstruct the missing characters to
+        form a complete sequence.
+
+        The final formatted list, 'detection_list', represents the detected sequence in a
+        structured manner, with each element corresponding to a part of the sequence.
+        """
+
         x_coors_list = []
         for r in results:
             preds_tensor = r.boxes.cls
