@@ -1,0 +1,5 @@
+pickle
+argparse
+ultralytics
+opencv-python
+singleton_decorator
