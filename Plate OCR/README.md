@@ -1,5 +1,5 @@
-# PersicaGlyph OCR: Persian License Plate Recognition System
-PersicaGlyph OCR is a state-of-the-art Persian license plate recognition system utilizing the YOLOv8 small model for fast and accurate detection and character recognition. Designed for seamless integration into traffic monitoring and vehicle identification workflows, this tool stands out for its speed, accuracy, and ease of use.
+# PersicaGlyph OCR Studio: Persian License Plate Recognition System
+License Plate OCR is a state-of-the-art Persian license plate recognition system utilizing the YOLOv8 small model for fast and accurate detection and character recognition. Designed for seamless integration into traffic monitoring and vehicle identification workflows, this tool stands out for its speed, accuracy, and ease of use.
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -16,7 +16,7 @@ PersicaGlyph OCR is a state-of-the-art Persian license plate recognition system 
 - [Contact Information](#contact-information)
 
 ## Introduction
-PersicaGlyphOCR is an advanced OCR system designed for the precise recognition of Persian license plates. Leveraging the YOLOv8 small model, it offers fast and reliable detection of license plates and their alphanumeric characters using a single unified model. This system is ideal for applications such as traffic monitoring and automated vehicle identification.
+License Plate OCR is an advanced OCR system designed for the precise recognition of Persian license plates. Leveraging the YOLOv8 small model, it offers fast and reliable detection of license plates and their alphanumeric characters using a single unified model. This system is ideal for applications such as traffic monitoring and automated vehicle identification.
 
 ## Features
 - **Single-Model Detection and OCR**: Employs YOLOv8s for both license plate detection and character recognition.
@@ -89,13 +89,7 @@ Remember, the future of audio is not just heard; it's shared and shaped by enthu
 
 ## Technology Stack
 
-Certainly! Below is an explanation for each of the listed dependencies, which can be included in your README file to provide users with context about the purpose of each package in your project.
-
----
-
-## Dependencies
-
-Before setting up PersicaGlyph OCR, it is important to understand the role of each dependency in the system:
+Before setting up License Plate OCR, it is important to understand the role of each dependency in the system:
 
 - **Pickle**: A Python module that implements binary protocols for serializing and de-serializing a Python object structure. In PersicaGlyphOCR, `pickle` is used to load pre-saved mappings that relate character IDs to their unicode representations and translations.
 
@@ -110,17 +104,17 @@ Before setting up PersicaGlyph OCR, it is important to understand the role of ea
 - **Torch (PyTorch)**: An open-source machine learning library based on the Torch library, used for applications such as computer vision and natural language processing. It is a core dependency for running the Ultralytics YOLO model as it provides the necessary tools for deep learning and model inference.
 
 ---
-Each of these dependencies plays a crucial role in ensuring PersicaGlyphOCR operates effectively, from model loading and image processing to parsing user commands and ensuring efficient resource usage.
+Each of these dependencies plays a crucial role in ensuring License Plate OCR operates effectively, from model loading and image processing to parsing user commands and ensuring efficient resource usage.
 
 
 ## License
-PersicaGlyph OCR is open-sourced under the MIT License. See [LICENSE](LICENSE) for more details.
+License Plate OCR is open-sourced under the MIT License. See [LICENSE](LICENSE) for more details.
 
 ## Contributing
-While we deeply value community input and interest in PersicaGlyph OCR, the project is currently in a phase where we're mapping out our next steps and are not accepting contributions just yet. We are incredibly grateful for your support and understanding. Please stay tuned for future updates when we'll be ready to welcome contributions with open arms.
+While we deeply value community input and interest in License Plate OCR, the project is currently in a phase where we're mapping out our next steps and are not accepting contributions just yet. We are incredibly grateful for your support and understanding. Please stay tuned for future updates when we'll be ready to welcome contributions with open arms.
 
 ## Credits and Acknowledgements
-We would like to extend our heartfelt thanks to Ms.Samin Heydarian for her guidance and wisdom throughout the development of PersicaGlyph OCR. Her insights have been a beacon of inspiration for this project.
+We would like to extend our heartfelt thanks to Ms.Samin Heydarian for her guidance and wisdom throughout the development of License Plate OCR. Her insights have been a beacon of inspiration for this project.
 
 ## Contact Information
-Although we're not open to contributions at the moment, your feedback and support are always welcome. Please feel free to star the project or share your thoughts through the Issues tab on GitHub, and we promise to consider them carefully.please [open an issue](https://github.com/Amir-Nassimi/PersicaGlyph-OCR/issues) in the PersicaGlyph OCR repository, and we will assist you.
+Although we're not open to contributions at the moment, your feedback and support are always welcome. Please feel free to star the project or share your thoughts through the Issues tab on GitHub, and we promise to consider them carefully.please [open an issue](https://github.com/Amir-Nassimi/PersicaGlyph-OCR-Studio/issues) in the License Plate OCR repository, and we will assist you.
