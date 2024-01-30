@@ -1,5 +1,5 @@
-# PersicaGlyph OCR: Persian License Plate Recognition System
-PersicaGlyph OCR is a state-of-the-art Persian license plate recognition system utilizing the YOLOv8 small model for fast and accurate detection and character recognition. Designed for seamless integration into traffic monitoring and vehicle identification workflows, this tool stands out for its speed, accuracy, and ease of use.
+# PersicaGlyph OCR Studio: Credit Card OCR System
+This OCR system is tailored for extracting credit card information from images. It uses advanced image processing techniques to enhance the legibility of credit card numbers and employs OCR technology to read and interpret the card details.
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -16,57 +16,39 @@ PersicaGlyph OCR is a state-of-the-art Persian license plate recognition system 
 - [Contact Information](#contact-information)
 
 ## Introduction
-PersicaGlyphOCR is an advanced OCR system designed for the precise recognition of Persian license plates. Leveraging the YOLOv8 small model, it offers fast and reliable detection of license plates and their alphanumeric characters using a single unified model. This system is ideal for applications such as traffic monitoring and automated vehicle identification.
+The Credit Card OCR System is a sophisticated tool that leverages Optical Character Recognition (OCR) to extract credit card information from images. Using a combination of image processing strategies and OCR, it can identify card numbers, expiration dates, CVV codes, and more with high accuracy. It's built with the ease of integration in mind, making it suitable for financial applications, automated form filling, and fraud prevention systems. It also uses image processing strategies such as image enhancement and bolding of numbers to prepare images for OCR and to improve the accuracy of text recognition.
 
 ## Features
-- **Single-Model Detection and OCR**: Employs YOLOv8s for both license plate detection and character recognition.
-- **High-Speed Processing**: Utilizes the YOLOv8 small model for rapid processing, suitable for real-time applications.
-- **Precision in Detection and Character Recognition**: Accurately identifies Persian license plates and characters.
-- **Customizable Parameters**: Adjustable settings for detection and OCR to cater to various requirements.
+- **OCR Technology**: Utilizes the `easyocr` library to recognize text within images.
+- **Image Processing**: Employs strategies like number bolding and image enhancement to prepare images for OCR.
+- **Information Extraction**: Extracts credit card details such as card number, IBAN, CVV2, expiry date, owner's name, and bank name.
+- **Accuracy Enhancement**: Implements post-processing methods to correct common OCR errors.
+- **Bank Identification**: Maps card prefixes to bank names for quick identification.
+- **User-Selectable Image Processing Strategies**: Choose between `EnhanceImageStrategy` for overall image quality improvement or `MakeNumbersBolderStrategy` to increase the prominence of numbers for OCR.
 
-## Setup
+### Explanation of Image Processing Strategies
+- **EnhanceImageStrategy**: Improves the image's contrast and sharpness to aid OCR accuracy.
+- **MakeNumbersBolderStrategy**: Thickens the numbers in the image, making them more distinguishable for the OCR process.
 
-1. **Python Environment**: 
-    Ensure Python 3.10.13 or later is installed.
-2. **Dependencies**: 
-    Before installing the project dependencies, ensure you have PyTorch installed. PyTorch can be installed via pip or conda, depending on your preference and system setup. Visit the [PyTorch official website](https://pytorch.org/get-started/locally/) for installation instructions tailored to your platform.
-    ```bash
-    pip install -r requirements.txt
-    ```
-3. **Model Weights**:
-    - Download the YOLOv8 model weights and license plate specifications from [this link](https://drive.google.com/file/d/1DvKWOKv6w3eBF1l5ONJbutOmyYIA0rFh/view?usp=sharing).
-    - Create a `Models`` directory in the root of the project.
-    - Place the downloaded file inside the `Models` directory and extract them using the passphrase: `PersicaGlyph_OCR`.
 
 ## Build and Test
-Execute `run.py` with the following arguments:
+To use the Credit Card OCR System, run the `main` script with the path to the image you want to process:
 
 ```bash
-python run.py \
-  --runs_num [number] \
-  --input_dir [path] \
-  --output_dir [path] \
-  --model_path [path, optional] \
-  --plate_conf [float, optional] \
-  --char_conf [float, optional] \
-  --plate_iou [float, optional] \
-  --char_iou [float, optional] \
-  --plate_imgsz [tuple, optional] \
-  --char_imgsz [tuple, optional]
+python main.py --image_path --strategy 
 ```
----
 
 ### Parameter Explanation
-- `--runs_num`: Number of times the detection is repeated for runtime evaluation.
-- `--input_dir`: Directory path containing the test images.
-- `--output_dir`: Directory path where the results will be saved.
-- `--model_path`: (Optional) Path to the YOLO model. Default is `"./Models/PGO_Weights.pt"`.
-- `--plate_conf`: (Optional) Confidence threshold for plate detection. Default is `0.83`.
-- `--char_conf`: (Optional) Confidence threshold for character detection. Default is `0.5`.
-- `--plate_iou`: (Optional) IOU threshold for plate detection. Default is `0.7`.
-- `--char_iou`: (Optional) IOU threshold for character detection. Default is `0.7`.
-- `--plate_imgsz`: (Optional) Image size for plate detection. Default is `(640, 640)`.
-- `--char_imgsz`: (Optional) Image size for character detection. Default is `(320, 320)`.
+- `--image_path`: The path to the image file containing the credit card to be processed.
+- `--strategy`: (Optional) Image processing strategy to use. Choose enhance for image enhancement or bold for making numbers bolder. Default is bold.
+
+## Explanation of Source Code Components
+- **OCRReader**: A singleton class that initializes the `easyocr` reader once and uses it to read text from images.
+- **OCRDataProcessor**: Contains logic for parsing and structuring OCR results, mapping card numbers to bank names, and correcting OCR errors.
+- **ImageProcessor**: A class that takes an image processing strategy as a parameter and applies it to the image.
+- **EnhanceImageStrategy**: An image processing strategy that enhances the overall quality of the image, making it more suitable for OCR.
+- **MakeNumbersBolderStrategy**: Specifically focuses on making numbers in the image bolder to improve OCR accuracy.
+- **Main Script**: The entry point of the application, which uses `argparse` to accept an image path, processes the image, and then prints the extracted credit card information.
 
 ## Demonstration
 The image showcases the robust detection capabilities of PersicaGlyphOCR. Our model is designed to handle a diverse array of license plate designs and formats, as evidenced by the multiple examples displayed. While the plates differ in background color, text style, and arrangement, our system can reliably identify and extract the plate region from the vehicle's image.
@@ -88,39 +70,22 @@ Remember, the future of audio is not just heard; it's shared and shaped by enthu
 ---
 
 ## Technology Stack
+Before setting up Credit Card OCR, it is important to understand the role of each dependency in the system:
 
-Certainly! Below is an explanation for each of the listed dependencies, which can be included in your README file to provide users with context about the purpose of each package in your project.
-
+- **easyocr**: For reading text from images using pre-trained neural network models.
+- **OpenCV (opencv-python)**: For image processing tasks such as image reading, converting color spaces, thresholding, and contour detection.
+- **Numpy**: For efficient array operations, used in image manipulation.
+- **singleton_decorator**: Ensures classes like `OCRReader` and image processing strategies are instantiated only once.
+- **Argparse**: For parsing command-line options and arguments in the script.
 ---
-
-## Dependencies
-
-Before setting up PersicaGlyph OCR, it is important to understand the role of each dependency in the system:
-
-- **Pickle**: A Python module that implements binary protocols for serializing and de-serializing a Python object structure. In PersicaGlyphOCR, `pickle` is used to load pre-saved mappings that relate character IDs to their unicode representations and translations.
-
-- **Argparse**: The `argparse` module makes it easy to write user-friendly command-line interfaces. It is utilized in `run.py` to handle parsing command-line options and arguments, allowing users to configure the OCR system's parameters.
-
-- **Ultralytics YOLO**: This is a PyTorch implementation of the YOLO (You Only Look Once) object detection algorithm. It is used for detecting objects in images with great speed and accuracy. In this project, it powers the license plate and character detection functionalities.
-
-- **OpenCV-Python (opencv-python)**: A Python wrapper for the OpenCV library, which provides a rich set of algorithms for image processing and computer vision. PersicaGlyphOCR uses OpenCV for reading images from disk, preprocessing them before detection, and possibly for further image operations needed for post-processing.
-
-- **Singleton Decorator (singleton_decorator)**: This is a decorator for classes in Python. When applied to a class, it modifies the class to follow the Singleton design pattern, ensuring that only one instance of the class exists throughout the application. In the OCR model, it ensures that the model is loaded into memory only once and reused, which is efficient for system resources.
-
-- **Torch (PyTorch)**: An open-source machine learning library based on the Torch library, used for applications such as computer vision and natural language processing. It is a core dependency for running the Ultralytics YOLO model as it provides the necessary tools for deep learning and model inference.
-
----
-Each of these dependencies plays a crucial role in ensuring PersicaGlyphOCR operates effectively, from model loading and image processing to parsing user commands and ensuring efficient resource usage.
+Each of these dependencies plays a crucial role in ensuring Credit Card OCR operates effectively, from model loading and image processing to parsing user commands and ensuring efficient resource usage.
 
 
 ## License
-PersicaGlyph OCR is open-sourced under the MIT License. See [LICENSE](LICENSE) for more details.
+Credit Card OCR is open-sourced under the MIT License. See [LICENSE](LICENSE) for more details.
 
 ## Contributing
-While we deeply value community input and interest in PersicaGlyph OCR, the project is currently in a phase where we're mapping out our next steps and are not accepting contributions just yet. We are incredibly grateful for your support and understanding. Please stay tuned for future updates when we'll be ready to welcome contributions with open arms.
-
-## Credits and Acknowledgements
-We would like to extend our heartfelt thanks to Ms.Samin Heydarian for her guidance and wisdom throughout the development of PersicaGlyph OCR. Her insights have been a beacon of inspiration for this project.
+While we deeply value community input and interest in Credit Card OCR, the project is currently in a phase where we're mapping out our next steps and are not accepting contributions just yet. We are incredibly grateful for your support and understanding. Please stay tuned for future updates when we'll be ready to welcome contributions with open arms.
 
 ## Contact Information
-Although we're not open to contributions at the moment, your feedback and support are always welcome. Please feel free to star the project or share your thoughts through the Issues tab on GitHub, and we promise to consider them carefully.please [open an issue](https://github.com/Amir-Nassimi/PersicaGlyph-OCR/issues) in the PersicaGlyph OCR repository, and we will assist you.
+Although we're not open to contributions at the moment, your feedback and support are always welcome. Please feel free to star the project or share your thoughts through the Issues tab on GitHub, and we promise to consider them carefully.please [open an issue](https://github.com/Amir-Nassimi/PersicaGlyph-OCR-Studio/issues) in the Credit Card OCR repository, and we will assist you.
