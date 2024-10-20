@@ -1,0 +1,7 @@
+opencv-python
+easyocr
+imutils
+numpy
+matplotlib
+singleton-decorator
+Pillow
